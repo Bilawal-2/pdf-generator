@@ -1,2 +1,2 @@
 # pdf-generator
-In this reposirtory I have develop pdf report using java
+In this reposirtory I have develop a program to generate pdf report.
