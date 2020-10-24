@@ -1,4 +1,12 @@
 # ignore build
 /build
 
+#ignore pdf file
+*.pdf
 
+
+# ignore gradle files
+.gradle
+
+# idea files
+.idea
