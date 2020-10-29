@@ -1,59 +1,43 @@
 package com.bilta.pdf.generator.table;
 
+import com.itextpdf.awt.DefaultFontMapper;
 import com.itextpdf.io.font.constants.StandardFonts;
 import com.itextpdf.kernel.colors.DeviceGray;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.layout.element.Cell;
-import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
-
+import com.itextpdf.text.*;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 import java.io.IOException;
 
 public class PDFTable {
 
-    public Table createTable(String value) throws IOException {
+    public PdfPTable createTable(String value)  {
 
-        float[] columnWidths = {1,5,5};
-        Table table = new Table(UnitValue.createPercentArray(columnWidths))
-                .useAllAvailableWidth();
-        PdfFont font = PdfFontFactory.createFont(StandardFonts.HELVETICA);
-        Cell cell = new Cell(1,3)
-                .add(new Paragraph("This is a header"))
-                .setFont(font)
-                .setFontSize(13)
-                .setBackgroundColor(DeviceGray.BLACK)
-                .setTextAlignment(TextAlignment.CENTER);
-        table.addHeaderCell(cell);
+        PdfPTable table = new PdfPTable(4);
 
-        for (int i = 0; i < 2; i++) {
-            Cell[] headerFooter = new Cell[]{
-                    new Cell().setBackgroundColor(new DeviceGray(0.75f)).
-                            add(new Paragraph("#")),
-                    new Cell().setBackgroundColor(new DeviceGray(0.75f)).
-                            add(new Paragraph("Key")),
-                    new Cell().setBackgroundColor(new DeviceGray(0.75f)).
-                            add(new Paragraph("Value"))
-            };
-            for (Cell hfCell: headerFooter){
-                if(i==0)
-                    table.addHeaderCell(hfCell);
-                else
-                    table.addFooterCell(hfCell);
-            }
+        table.setTotalWidth(150);
+        PdfPCell cell;
+        for (int i = 0; i < 4 * 6; i++)
+        {
+            System.out.print("o"+i);
+            Font font = new Font(Font.FontFamily.COURIER,16,Font.NORMAL,BaseColor.BLACK);
+
+            cell = new PdfPCell();
+            cell.setBackgroundColor(BaseColor.BLUE);
+            cell.setBorder(Rectangle.BOX);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.addElement(new Paragraph(value,font));
+            table.addCell(cell);
         }
-
-        for (int i = 0; i < 100; i++) {
-            table.addCell(new Cell().setTextAlignment(TextAlignment.CENTER)
-                    .add(new Paragraph(String.valueOf(i + 1))));
-            table.addCell(new Cell().setTextAlignment(TextAlignment.CENTER)
-                    .add(new Paragraph("Key"+(i + 1))));
-            table.addCell(new Cell().setTextAlignment(TextAlignment.CENTER)
-                    .add(new Paragraph("Value" + (i + 1))));
-        }
-
         return  table;
     }
+
+
 }
