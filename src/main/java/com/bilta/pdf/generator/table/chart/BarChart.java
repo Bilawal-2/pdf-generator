@@ -19,9 +19,9 @@ public class BarChart {
 
         JFreeChart chart = ChartFactory.createBarChart(
 
-                "World Population growth", "Year", "Population in millions",
-
-                dataSet, PlotOrientation.VERTICAL, false, true, false);
+                "", "", "",
+                dataSet, PlotOrientation.VERTICAL, false, true, false
+        );
 
 
         return chart;
